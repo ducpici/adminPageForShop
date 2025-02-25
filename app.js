@@ -8,6 +8,9 @@ const app = express()
 app.use(express.static('./src/public/'))
 app.use(express.json())
 
+//config req.body
+app.use(express.urlencoded({extended: true}))
+
 setViewEngine(app)
 app.use(router)
 

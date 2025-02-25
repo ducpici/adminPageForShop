@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/home.css">
+    <link rel="stylesheet" href="/css/customer.css">
+    <link rel="stylesheet" href="/assets/fontawesome-web/fontawesome-free-6.7.2-web/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="wrapper">
+        <!-- sidebar -->
+        <%- include('sidebar.ejs') %>
+        <!-- sidebar -->
+
+        <!-- content -->
+        <div class="content-wrapper">   
+            <%- include('navbarTop.ejs') %>
+            <div class="container-wrapper">
+                <div class="main">
+                    <ul class="main_heading">
+                        <li><a href=""><span>Customer/Edit Customer</span></a></li>
+                    </ul>
+                    <form action="edit-customer" method="post">
+                        <div class="input-group">
+                            <label for="">Full name:</label>
+                            <input class="input-text" type="text" name="fullName" value="<%= customer.fullName %>">
+                        </div>
+                        <div class="input-group">
+                            <% var d = new Date(customer.dateOfBirth); var day=(d.getUTCDate() + 1).toString().padStart(2,0); var month=(d.getUTCMonth() + 1).toString().padStart(2,0); var year=d.getUTCFullYear(); var dateString=year+"-"+month+"-"+day%>
+                            <label for="">Date:</label>
+                            <input type="date" name="dateOfBirth" value="<%= dateString %>">
+                        </div>                        
+                        <div class="input-group">
+                            <label for="">Sex:</label>
+                            <input type="radio" name="sex" value="1" checked="checked">Nam
+                            <input type="radio" name="sex" value="0">Nữ
+                        </div>
+                        <div class="input-group">
+                            <label for="">Address:</label>
+                            <input class="input-text" type="text" name="address" value="<%= customer.address %>">
+                        </div>
+                        <div class="input-group">
+                            <label for="">Email:</label>
+                            <input class="input-text" type="text" name="email" value="<%= customer.email %>">
+                        </div>
+                        <div class="input-group">
+                            <label for="">Phone:</label>
+                            <input class="input-text" type="text" name="phone" value="<%= customer.phone %>">
+                        </div>
+                        <div class="input-group">
+                            <input type="file" name="" id="">
+                        </div>
+                        
+                        <button type="submit">Edit</button>
+                    </form>
+                </div>
+            </div>                
+        </div>
+        <!-- content -->
+
+        <!-- footer -->
+        <footer class="footer">
+
+        </footer>
+        <!-- footer -->
+    </div>
+    <script src="/js/home.js"></script>
+</body>
+</html>

@@ -23,7 +23,7 @@
                     <ul class="main_heading">
                         <li><a href=""><span>Customer/</span></a></li>
                     </ul>
-                    <a href="">Add new Customer</a>                       
+                    <a href="add-customer">Add new Customer</a>                       
                     <table>
                         <tr>
                             <th>ID</th>
@@ -46,12 +46,12 @@
                                     Nam
                                 <% } else { %>
                                     Nữ    
-                                =<% } %>
+                                <% } %>
                             </td>
                             <td><%= customer.address %></td>
                             <td><%= customer.email %></td>
                             <td><%= customer.phone %></td>
-                            <td><a href=""><i class="fa-solid fa-pen-to-square"></i></a> <a href=""><i class="fa-solid fa-trash"></i></a></td>
+                            <td><a href="edit-customer/<%= customer.id %>"><i class="fa-solid fa-pen-to-square"></i></a> <a href=""><i class="fa-solid fa-trash"></i></a></td>
                         </tr>    
                         <% }) %>
                     </table>
