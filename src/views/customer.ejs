@@ -21,9 +21,9 @@
             <div class="container-wrapper">
                 <div class="main">
                     <ul class="main_heading">
-                        <li><a href=""><span>Customer/</span></a></li>
+                        <li><a href=""><span>Customers/</span></a></li>
                     </ul>
-                    <a href="add-customer">Add new Customer</a>                       
+                    <a class="addNew" href="add-customer">Add new Customer</a>                       
                     <table>
                         <tr>
                             <th>ID</th>
@@ -51,7 +51,7 @@
                             <td><%= customer.address %></td>
                             <td><%= customer.email %></td>
                             <td><%= customer.phone %></td>
-                            <td><a href="edit-customer/<%= customer.id %>"><i class="fa-solid fa-pen-to-square"></i></a> <a href="delete-customer/<%= customer.id %>"><i class="fa-solid fa-trash"></i></a></td>
+                            <td class="actions"><a class="editIcon actionIcon" href="edit-customer/<%= customer.id %>"><i class="fa-solid fa-pen-to-square"></i></a> <a class="deleteIcon actionIcon" href="delete-customer/<%= customer.id %>"><i class="fa-solid fa-trash"></i></a></td>
                         </tr>    
                         <% }) %>
                     </table>

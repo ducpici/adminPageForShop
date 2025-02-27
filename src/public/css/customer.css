@@ -10,3 +10,31 @@ th, td{
 th{
     background-color: #ccc;
 }
+
+a{
+    color: #000;
+}
+
+table {
+    width: 100%;
+    text-align: center;
+}
+
+.addNew{
+    float: right;
+    padding: 5px 10px;
+    color: #eee;
+    background-color: #4C60DA;
+    margin: 10px 0;
+    border-radius: 5px;
+}
+
+.actionIcon{
+    padding: 5px;
+}
+.editIcon{
+    color: #4C60DA;
+}
+.deleteIcon{
+    color: red;
+}

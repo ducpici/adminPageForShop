@@ -1,19 +1,17 @@
 import multer from "multer";
 import path from "path";
 
-const newPath = path.dirname(__dirname) + '\\public\\images\\avtCustomers\\'
-
 // Cấu hình Multer để lưu ảnh vào thư mục "uploads"
 const storage = multer.diskStorage({
     
     destination: function (req, file, cb) {
-        cb(null, newPath); // Lưu file vào thư mục uploads/
+        cb(null, path.join(__dirname, "../public/images/avtCustomers")); // Lưu file vào thư mục 
     },
     filename: function (req, file, cb) {
-        cb(null, Date.now() + path.extname(file.originalname)); // Đổi tên file tránh trùng lặp
+        cb(null, Date.now() + path.extname(file.originalname)); // Đổi tên file
     }
 });
-console.log(newPath)
+
 const upload = multer({ storage: storage });
 
 export default upload;
