@@ -6,10 +6,10 @@ import {checkConnection} from './src/configs/database.js'
 const app = express()
 
 app.use(express.static('./src/public/'))
-app.use(express.json())
 
 //config req.body
 app.use(express.urlencoded({extended: true}))
+app.use(express.json())
 
 setViewEngine(app)
 app.use(router)
