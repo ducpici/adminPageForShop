@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/home.css">
+    <link rel="stylesheet" href="/css/customer.css">
+    <link rel="stylesheet" href="/assets/fontawesome-web/fontawesome-free-6.7.2-web/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="wrapper">
+        <!-- sidebar -->
+        <%- include('sidebar.ejs') %>
+        <!-- sidebar -->
+
+        <!-- content -->
+        <div class="content-wrapper">   
+            <%- include('navbarTop.ejs') %>
+            <div class="container-wrapper">
+                <div class="main">
+                    <ul class="main_heading">
+                        <li><a href=""><span>Nhà cung cấp/</span></a></li>
+                    </ul>
+                    <a class="addNew" href="add-product_type">Thêm mới</a>                       
+                    <table>
+                        <tr>
+                            <th>#</th>
+                            <th>Mã loại sản phẩm</th>
+                            <th>Tên loại sản phẩm</th>
+                            <th>Chức năng</th>
+                        </tr>
+                        <% var count=0; %>
+                        <% data.forEach((product_type) => { count++ %>
+                        <tr>
+                            <td><%= count %></td>
+                            <td><%= product_type.id %></td>
+                            <td><%= product_type.product_type_name %></td>         
+                            <td class="actions"><a class="editIcon actionIcon" href="edit-product_type/<%= product_type.id %>"><i class="fa-solid fa-pen-to-square"></i></a> <a class="deleteIcon actionIcon" href="delete-product_type/<%= product_type.id %>"><i class="fa-solid fa-trash"></i></a></td>
+                        </tr>    
+                        <% }) %>
+                    </table>
+                </div>
+            </div>                
+        </div>
+        <!-- content -->
+
+        <!-- footer -->
+        <footer class="footer">
+
+        </footer>
+        <!-- footer -->
+    </div>
+    <script src="/js/home.js"></script>
+</body>
+</html>

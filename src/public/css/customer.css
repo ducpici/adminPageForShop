@@ -1,10 +1,10 @@
 table, th, td{
-    border: 1px solid #000;
+    /* border: 1px solid #000; */
     border-collapse: collapse;
 }
 
 th, td{
-    padding: 5px;
+    padding: 10px 5px;
 }
 
 th{
@@ -37,4 +37,12 @@ table {
 }
 .deleteIcon{
     color: red;
+}
+
+.infoIcon{
+    color: #4C60DA;
+}
+
+.img-product{
+    width: 100px;
 }

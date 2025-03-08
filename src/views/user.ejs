@@ -21,40 +21,42 @@
             <div class="container-wrapper">
                 <div class="main">
                     <ul class="main_heading">
-                        <li><a href=""><span>Khách hàng/</span></a></li>
+                        <li><a href=""><span>Nhân viên/</span></a></li>
                     </ul>
-                    <a class="addNew" href="add-customer">Thêm mới</a>                       
+                    <a class="addNew" href="add-user">Thêm mới</a>                       
                     <table>
                         <tr>
                             <th>#</th>
-                            <th>Mã khách hàng</th>
-                            <th>Họ tên khách hàng</th>
+                            <th>Mã nhân viên</th>
+                            <th>Họ tên nhân viên</th>
                             <th>Ngày sinh</th>
                             <th>Giới tính</th>
                             <th>Địa chỉ</th>
                             <th>Email</th>
                             <th>Số điện thoại</th>
+                            <th>Chức vụ</th>
                             <th>Chức năng</th>
                         </tr>
                         <% var count=0; %>
-                        <% data.forEach((customer) => { count++ %>
+                        <% data.forEach((user) => { count++ %>
                         <tr>
                             <td><%= count %></td>
-                            <td><%= customer.id %></td>
-                            <td><%= customer.fullName %></td>
-                            <% var d = new Date(customer.dateOfBirth); var day=(d.getUTCDate() + 1).toString().padStart(2,0); var month=(d.getUTCMonth() + 1).toString().padStart(2,0); var year=d.getUTCFullYear(); var dateString=day+"/"+month+"/"+year %>
+                            <td><%= user.id %></td>
+                            <td><%= user.fullName %></td>
+                            <% var d = new Date(user.dateOfBirth); var day=(d.getUTCDate() + 1).toString().padStart(2,0); var month=(d.getUTCMonth() + 1).toString().padStart(2,0); var year=d.getUTCFullYear(); var dateString=day+"/"+month+"/"+year %>
                             <td><%= dateString %></td>
                             <td>
-                                <% if(customer.sex == 1){ %>
+                                <% if(user.sex == 1){ %>
                                     Nam
                                 <% } else { %>
                                     Nữ    
                                 <% } %>
                             </td>
-                            <td><%= customer.address %></td>
-                            <td><%= customer.email %></td>
-                            <td><%= customer.phone %></td>
-                            <td class="actions"><a class="editIcon actionIcon" href="edit-customer/<%= customer.id %>"><i class="fa-solid fa-pen-to-square"></i></a> <a class="deleteIcon actionIcon" href="delete-customer/<%= customer.id %>"><i class="fa-solid fa-trash"></i></a></td>
+                            <td><%= user.address %></td>
+                            <td><%= user.email %></td>
+                            <td><%= user.phone %></td>
+                            <td><%= user.name %></td>
+                            <td class="actions"><a class="editIcon actionIcon" href="edit-user/<%= user.id %>"><i class="fa-solid fa-pen-to-square"></i></a> <a class="deleteIcon actionIcon" href="delete-user/<%= user.id %>"><i class="fa-solid fa-trash"></i></a></td>
                         </tr>    
                         <% }) %>
                     </table>
@@ -69,6 +71,6 @@
         </footer>
         <!-- footer -->
     </div>
-    <script src="/js/home.js"></script>
+    <!-- <script src="/js/home.js"></script> -->
 </body>
 </html>

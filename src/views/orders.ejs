@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/home.css">
+    <link rel="stylesheet" href="/css/customer.css">
+    <link rel="stylesheet" href="/assets/fontawesome-web/fontawesome-free-6.7.2-web/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="wrapper">
+        <!-- sidebar -->
+        <%- include('sidebar.ejs') %>
+        <!-- sidebar -->
+
+        <!-- content -->
+        <div class="content-wrapper">   
+            <%- include('navbarTop.ejs') %>
+            <div class="container-wrapper">
+                <div class="main">
+                    <ul class="main_heading">
+                        <li><a href=""><span>Đơn hàng/</span></a></li>
+                    </ul>
+                    <a class="addNew" href="add-order">Thêm mới</a>                       
+                    <table>
+                        <tr>
+                            <th>#</th>
+                            <th>Mã đơn hàng</th>
+                            <th>Mã khách hàng</th>
+                            <th>Tên khách hàng</th>
+                            <th>Thời gian lập</th>
+                            <th>Tổng đơn hàng</th>
+                            <th>Phương thức thanh toán</th>
+                            <th>Trạng thái</th>
+                            <th>Chức năng</th>
+                        </tr>
+                        <% var count=0; %>
+                        <% data.forEach((order) => { count++ %>
+                        <tr>
+                            <td><%= count %></td>
+                            <td><%= order.id %></td>
+                            <td><%= order.customer_id %></td>
+                            <td><%= order.fullName %></td>
+                            <% var d = new Date(order.date); var day=(d.getUTCDate() + 1).toString().padStart(2,0); var month=(d.getUTCMonth() + 1).toString().padStart(2,0); var year=d.getUTCFullYear(); var dateString=day+"/"+month+"/"+year %>
+                            <td><%= dateString %></td>
+                            <td><%= order.total %></td>
+                            <td><%= order.payment %></td>
+                            <!-- <td><%= order.status %></td>   -->
+                            <td>
+                                <% if(order.status == 1){ %>
+                                    Đã thanh toán
+                                <% } else if(order.status == 2) { %>
+                                    Chưa thanh toán    
+                                <% } else if(order.status == 3){ %>
+                                    Chờ xử lý
+                                <% } %>
+                            </td>
+                            <td class="actions"><a class="infoIcon actionIcon" href="info-order/<%= order.id %>"><i class="fa-solid fa-circle-info"></i></a> <a class="editIcon actionIcon" href="edit-order/<%= order.id %>"><i class="fa-solid fa-pen-to-square"></i></a></td>
+                        </tr>    
+                        <% }) %>
+                    </table>
+                </div>
+            </div>                
+        </div>
+        <!-- content -->
+
+        <!-- footer -->
+        <footer class="footer">
+
+        </footer>
+        <!-- footer -->
+    </div>
+    <script src="/js/home.js"></script>
+</body>
+</html>

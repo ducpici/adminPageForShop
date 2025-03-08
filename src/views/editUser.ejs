@@ -22,15 +22,15 @@
             <div class="container-wrapper">
                 <div class="main">
                     <ul class="main_heading">
-                        <li><a href=""><span>Khách hàng/Chỉnh sửa thông tin</span></a></li>
+                        <li><a href=""><span>Nhân viên/Chỉnh sửa thông tin</span></a></li>
                     </ul>
-                    <form action="edit-customer" method="post">
+                    <form action="edit-user" method="post">
                         <div class="input-group">
                             <label for="">Họ tên:</label>
-                            <input class="input-text" type="text" name="fullName" value="<%= customer.fullName %>">
+                            <input class="input-text" type="text" name="fullName" value="<%= user.fullName %>">
                         </div>
                         <div class="input-group">
-                            <% var d = new Date(customer.dateOfBirth); var day=(d.getUTCDate() + 1).toString().padStart(2,0); var month=(d.getUTCMonth() + 1).toString().padStart(2,0); var year=d.getUTCFullYear(); var dateString=year+"-"+month+"-"+day%>
+                            <% var d = new Date(user.dateOfBirth); var day=(d.getUTCDate() + 1).toString().padStart(2,0); var month=(d.getUTCMonth() + 1).toString().padStart(2,0); var year=d.getUTCFullYear(); var dateString=year+"-"+month+"-"+day%>
                             <label for="">Ngày sinh:</label>
                             <input type="date" name="dateOfBirth" value="<%= dateString %>">
                         </div>                        
@@ -41,15 +41,23 @@
                         </div>
                         <div class="input-group">
                             <label for="">Địa chỉ:</label>
-                            <input class="input-text" type="text" name="address" value="<%= customer.address %>">
+                            <input class="input-text" type="text" name="address" value="<%= user.address %>">
                         </div>
                         <div class="input-group">
                             <label for="">Email:</label>
-                            <input class="input-text" type="text" name="email" value="<%= customer.email %>">
+                            <input class="input-text" type="text" name="email" value="<%= user.email %>">
                         </div>
                         <div class="input-group">
                             <label for="">Số điện thoại:</label>
-                            <input class="input-text" type="text" name="phone" value="<%= customer.phone %>">
+                            <input class="input-text" type="text" name="phone" value="<%= user.phone %>">
+                        </div>
+                        <div class="input-group">
+                            <label for="">Chức vụ:</label>
+                            <select name="" id="">
+                                <option value="1" selected>Quản lý</option>
+                                <option value="2" selected>Kế toán</option>
+                                <option value="3" selected>Thu ngân</option>
+                            </select>
                         </div>
                         <div class="input-group">
                             <label for="">Hình ảnh:</label>
