@@ -5,6 +5,11 @@ const getAllUser = async () => {
     return results
 }
 
+const checkAccount = async (username,password) => {
+    const [results, fields] = await connection.execute('select * from users, user_role where users.role_id = user_role.id and username = ? and password = ?', [username, password])
+    return results
+}
+
 module.exports = {
-    getAllUser
+    getAllUser,checkAccount
 }

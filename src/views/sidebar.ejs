@@ -1,20 +1,36 @@
 <ul class="sidebar sidebarMenu nav-list">
     <div class="sidebar-branch">
         <i class="fa-solid fa-warehouse fa-2x"></i><span class="nav-item-text">AdminPage</span>
-        <!-- <img src="/images/logo.webp" alt=""><span class="nav-item-text">Watch Store</span> -->
-
+    </div>
+    <div class="profile_container">
+        <div class="profile">
+            <div class="profile_img">
+                <img src="/images/avtUsers/admin.jpg" alt="">
+            </div>
+            <div class="profile_content">
+                <h3><%= user.fullName %></h3>
+                <p>Chức vụ: <%= user.name %></p>
+            </div>
+            <div class="action_user">
+                <i class="fa-solid fa-caret-down"></i>
+            </div>
+        </div>
+        <ul class="profile_dropdown">
+            <li><a href="">Hồ sơ của tôi</a></li>
+            <li><a href="">Chỉnh sửa hồ sơ</a></li>
+        </ul>
     </div>
     <li class="nav-item"><a class="nav-link" href="/"><i class="fa-solid fa-house"></i><span class="nav-item-text">Trang chủ</span></a></li>
+    <li class="nav-item"><a class="nav-link" href="/#"><i class="fa-solid fa-house"></i><span class="nav-item-text">Trang bán hàng</span></a></li>
+    <li class="title">Quản lý</li>
     <li class="nav-item"><a class="nav-link" href="/customers"><i class="fa-regular fa-id-card"></i><span class="nav-item-text">Quản lý khách hàng</span></a></li>
-    <li class="nav-item"><a class="nav-link active" href="/users"><i class="fa-regular fa-id-card"></i><span class="nav-item-text">Quản lý người dùng</span></a></li>
+    <li class="nav-item"><a class="nav-link" href="/users"><i class="fa-regular fa-id-card"></i><span class="nav-item-text">Quản lý người dùng</span></a></li>
     <li class="nav-item"><a class="nav-link" href="/#"><i class="fa-solid fa-key"></i><span class="nav-item-text">Quản lý tài khoản</span></a></li>
     <li class="nav-item"><a class="nav-link" href="/brands"><i class="fa-solid fa-table"></i><span class="nav-item-text">Quản lý nhà cung cấp</span></a></li>
     <li class="nav-item"><a class="nav-link" href="/product_types"><i class="fa-solid fa-table"></i><span class="nav-item-text">Quản lý loại sản phẩm</span></a></li>
     <li class="nav-item"><a class="nav-link" href="/products"><i class="fa-solid fa-table"></i><span class="nav-item-text">Quản lý sản phẩm</span></a></li>
     <li class="nav-item"><a class="nav-link" href="/orders"><i class="fa-solid fa-cart-shopping"></i><span class="nav-item-text">Quản lý đơn hàng</span></a></li>
-    <!-- <li class="nav-item"><a class="nav-link" href="/#"><i class="fa-solid fa-truck-fast"></i><span class="nav-item-text">Delivery</span></a></li> -->
     <li class="nav-item"><a class="nav-link" href="/#"><i class="fa-solid fa-chart-simple"></i><span class="nav-item-text">Thống kê</span></a></li>
-    <!-- <li class="nav-item"><a class="nav-link" href="/#"><i class="fa-regular fa-file-lines"></i></i><span class="nav-item-text">Phiếu nhập hàng</span></a></li>
-    <li class="nav-item"><a class="nav-link" href="/#"><i class="fa-regular fa-rectangle-list"></i><span class="nav-item-text">Phiếu xuất hàng</span></a></li>
-    <li class="nav-item"><a class="nav-link" href="/#"><i class="fa-solid fa-chart-simple"></i><span class="nav-item-text">Quản lý tồn kho</span></a></li> -->
+    <li class="title">Hệ thống</li>
+    <li class="nav-item"><a class="nav-link" href="/logout"><i class="fa-solid fa-right-from-bracket"></i><span class="nav-item-text">Đăng xuất</span></a></li>
 </ul>   

@@ -1,17 +1,25 @@
 import express from 'express'
 import router from './src/routes/webRoute.js'
+import session from 'express-session'
+import auth_router from './src/routes/auth.route.js'
 import setViewEngine from './src/configs/viewEngine.js'
-import {checkConnection} from './src/configs/database.js'
 
 const app = express()
 
 app.use(express.static('./src/public/'))
 
+app.use(session({
+    secret: process.env.SESSION_SECRET,
+    resave: true,
+    saveUninitialized: true,
+}))
 //config req.body
 app.use(express.urlencoded({extended: true}))
 app.use(express.json())
 
 setViewEngine(app)
 app.use(router)
+app.use(auth_router)
+
 
 export default app

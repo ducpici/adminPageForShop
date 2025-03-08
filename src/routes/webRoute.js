@@ -1,4 +1,5 @@
 import express from 'express'
+import {loggedin} from '../middlewares/auth.middleware'
 import {getHomePage,getCustomersPage} from '../controllers/homeControllers'
 import {getAddCustomerPage,postCreateCustomer,getEditCustomerPage,postDeleteCustomer} from '../controllers/customerControllers'
 import {getUsersPage,getAddUserPage} from '../controllers/userControllers'
@@ -9,31 +10,32 @@ import {getProductTypesPage,getAddProductTypePage,postCreateProductType,getEditP
 import upload from '../middlewares/multerConfig'
 const router = express.Router()
 
-router.get('/', getHomePage)
-router.get('/customers', getCustomersPage)
-router.get('/add-customer', getAddCustomerPage)
-router.post('/create-customer', upload.single("avatar"), postCreateCustomer)
-router.get('/edit-customer/:id', getEditCustomerPage)
-router.get('/delete-customer/:id', postDeleteCustomer)
+router.get('/',loggedin, getHomePage)
+router.get('/customers',loggedin, getCustomersPage)
+router.get('/add-customer',loggedin, getAddCustomerPage)
+router.post('/create-customer',loggedin, upload.single("avatar"), postCreateCustomer)
+router.get('/edit-customer/:id',loggedin, getEditCustomerPage)
+router.get('/delete-customer/:id',loggedin, postDeleteCustomer)
 
-router.get('/users', getUsersPage)
-router.get('/add-user', getAddUserPage)
+router.get('/users',loggedin, getUsersPage)
+router.get('/add-user',loggedin, getAddUserPage)
 
-router.get('/orders', getOrdersPage)
+router.get('/orders',loggedin, getOrdersPage)
 
-router.get('/products', getProductsPage)
+router.get('/products',loggedin, getProductsPage)
 
-router.get('/brands', getBrandsPage)
-router.get('/add-brand', getAddBrandPage)
-router.post('/create-brand', postCreateBrand)
-router.get('/edit-brand/:id', getEditBrandPage)
-router.post('/edit-brand/update-brand/:id', postUpdateBrand)
-router.get('/delete-brand/:id', postDeleteBrand)
+router.get('/brands',loggedin, getBrandsPage)
+router.get('/add-brand',loggedin, getAddBrandPage)
+router.post('/create-brand',loggedin, postCreateBrand)
+router.get('/edit-brand/:id',loggedin, getEditBrandPage)
+router.post('/edit-brand/update-brand/:id',loggedin, postUpdateBrand)
+router.get('/delete-brand/:id',loggedin, postDeleteBrand)
 
-router.get('/product_types', getProductTypesPage)
-router.get('/add-product_type', getAddProductTypePage)
-router.post('/create-product_type', postCreateProductType)
-router.get('/edit-product_type/:id', getEditProductTypePage)
-router.post('/edit-product_type/update-product_type/:id', postUpdateProductType)
-router.get('/delete-product_type/:id', postDeleteProductType)
+router.get('/product_types',loggedin, getProductTypesPage)
+router.get('/add-product_type',loggedin, getAddProductTypePage)
+router.post('/create-product_type',loggedin, postCreateProductType)
+router.get('/edit-product_type/:id',loggedin, getEditProductTypePage)
+router.post('/edit-product_type/update-product_type/:id',loggedin, postUpdateProductType)
+router.get('/delete-product_type/:id',loggedin, postDeleteProductType)
+
 export default router
