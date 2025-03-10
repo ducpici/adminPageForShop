@@ -52,14 +52,27 @@
                         </div>
                         <div class="input-group">
                             <label for="">Chức vụ:</label>
-                            <select name="" id="">
-                                <option value="1" selected>Quản lý</option>
+                            <select name="user_role" id="">
+                                <% data.forEach((role) => { %>
+                                    <option value="<%= role.id %>"><%= role.name %></option>
+                                <% }) %>
                             </select>
                         </div>
                         <div class="input-group">
+                            <label for="">Tên đăng nhập:</label>
+                            <input class="input-text" type="text" name="username">
+                        </div>
+                        <div class="input-group">
+                            <label for="">Mật khẩu:</label>
+                            <input class="input-text" type="text" name="password">
+                        </div>
+                        <div class="input-group">
                             <label for="">Hình ảnh:</label>
-                            <input type="file" name="avatar" id="">
-                        </div>        
+                            <input type="file" name="avatar" id="imgInput">
+                        </div>
+                        <div class="input-group">
+                            <img id="imgPreview" src="" alt="">         
+                        </div>          
                         <button type="submit">Thêm mới</button>
                     </form>
                 </div>
@@ -74,5 +87,6 @@
         <!-- footer -->
     </div>
     <script src="/js/home.js"></script>
+    <script src="/js/previewImage.js"></script>
 </body>
 </html>

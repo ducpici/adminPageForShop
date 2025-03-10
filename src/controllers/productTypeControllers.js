@@ -2,11 +2,11 @@ import {getAllProductType,getProductTypeById,createProductType,updateProductType
 
 const getProductTypesPage = async (req, res) => {
     const product_types = await getAllProductType()
-    res.render('productType.ejs', {data: product_types})
+    res.render('productType.ejs', {data: product_types, user_session: req.session.user})
 }
 
 const getAddProductTypePage = async (req, res) => {
-    res.render('addProductType.ejs')
+    res.render('addProductType.ejs',{user_session: req.session.user})
 }
 
 const postCreateProductType = async (req, res) => {
@@ -18,7 +18,7 @@ const postCreateProductType = async (req, res) => {
 const getEditProductTypePage = async (req, res) => {
     const id = req.params.id
     const result = await getProductTypeById(id)
-    res.render('editProductType.ejs', {product_type: result[0]})
+    res.render('editProductType.ejs', {product_type: result[0], user_session: req.session.user})
 }
 
 const postUpdateProductType = async (req, res) => {

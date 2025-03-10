@@ -24,7 +24,7 @@
                     <ul class="main_heading">
                         <li><a href=""><span>Khách hàng/Chỉnh sửa thông tin</span></a></li>
                     </ul>
-                    <form action="edit-customer" method="post">
+                    <form action="/update-customer/<%= customer.id %>" method="post">
                         <div class="input-group">
                             <label for="">Họ tên:</label>
                             <input class="input-text" type="text" name="fullName" value="<%= customer.fullName %>">
@@ -36,8 +36,8 @@
                         </div>                        
                         <div class="input-group">
                             <label for="">Giới tính:</label>
-                            <input type="radio" name="sex" value="1" checked="checked">Nam
-                            <input type="radio" name="sex" value="0">Nữ
+                            <input type="radio" name="sex" value="1" <%= customer.sex === 1 ? 'checked' : '' %>>Nam
+                            <input type="radio" name="sex" value="0" <%= customer.sex === 0 ? 'checked' : '' %>>Nữ
                         </div>
                         <div class="input-group">
                             <label for="">Địa chỉ:</label>
@@ -51,10 +51,10 @@
                             <label for="">Số điện thoại:</label>
                             <input class="input-text" type="text" name="phone" value="<%= customer.phone %>">
                         </div>
-                        <div class="input-group">
+                        <!-- <div class="input-group">
                             <label for="">Hình ảnh:</label>
                             <input type="file" name="" id="">
-                        </div>
+                        </div> -->
                         <button type="submit">Cập nhật</button>
                     </form>
                 </div>

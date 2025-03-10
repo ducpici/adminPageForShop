@@ -2,17 +2,17 @@ import {getAllBrand,getBrandById,createBrand,updateBrand,deleteBrand} from '../m
 
 const getBrandsPage = async (req, res) => {
     const brands = await getAllBrand()
-    res.render('brand.ejs', {data: brands})
+    res.render('brand.ejs', {data: brands, user_session: req.session.user})
 }
 
 const getAddBrandPage = (req, res) => {
-    res.render('addBrand.ejs')
+    res.render('addBrand.ejs', {user_session: req.session.user})
 }
 
 const getEditBrandPage = async (req, res) => {
     const id = req.params.id
     const result = await getBrandById(id)
-    res.render('editBrand.ejs', {brand: result[0]})
+    res.render('editBrand.ejs', {brand: result[0], user_session: req.session.user})
 }
 
 const postCreateBrand = async (req, res) => {

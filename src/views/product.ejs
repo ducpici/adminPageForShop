@@ -20,7 +20,7 @@
             <div class="container-wrapper">
                 <div class="main">
                     <ul class="main_heading">
-                        <li><a href=""><span>Products/</span></a></li>
+                        <li><a href=""><span>Sản phẩm/</span></a></li>
                     </ul>
                     <a class="addNew" href="add-product">Thêm mới sản phẩm</a>         
                     <table>
@@ -40,21 +40,17 @@
                         <% data.forEach((product) => { count++ %>
                         <tr>
                             <td><%= count %></td>
-                            <td><%= product.id %></td>
+                            <td><%= product.product_id %></td>
                             <td><img class="img-product" src="/images/cas001.png" alt=""></td>
                             <td><%= product.product_name %></td>
-                            <td><%= product.name %></td>
+                            <td><%= product.product_type_name %></td>
                             
                             <td><%= product.brand_name %></td>
                             <!-- <td><%= product.description %></td> -->
-                            <td>
-                                <% if(product.description == ''){ %>
-                                    -
-                                <% } %>
-                            </td>
+                            <td><%= product.description %></td>
                             <td><%= product.price %></td>
                             <td><%= product.quantity %></td>
-                            <td class="actions"><a class="editIcon actionIcon" href="edit-product/<%= product.id %>"><i class="fa-solid fa-pen-to-square"></i></a> <a class="deleteIcon actionIcon" href="delete-product/<%= product.id %>"><i class="fa-solid fa-trash"></i></a></td>
+                            <td class="actions"><a class="editIcon actionIcon" href="edit-product/<%= product.product_id %>"><i class="fa-solid fa-pen-to-square"></i></a> <a class="deleteIcon actionIcon" href="delete-product/<%= product.product_id %>"><i class="fa-solid fa-trash"></i></a></td>
                         </tr>    
                         <% }) %>
                     </table>

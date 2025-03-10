@@ -10,8 +10,13 @@ const getCustomerById = async (id) => {
     return results    
 }
 
-const createCustomer = async (fullName,dateOfBirth,sex,address,email,phone,avt) => {
-    const [results, fields] = await connection.execute('insert into customers (fullName, dateOfBirth,sex,address,email,phone,avtCustomer) values (?,?,?,?,?,?,?) ',[fullName,dateOfBirth,sex,address,email,phone,avt])
+const createCustomer = async (fullName,dateOfBirth,sex,address,email,phone) => {
+    const [results, fields] = await connection.execute('insert into customers (fullName, dateOfBirth,sex,address,email,phone) values (?,?,?,?,?,?)',[fullName,dateOfBirth,sex,address,email,phone])
+    return results
+}
+
+const updateCustomer = async (fullName,dateOfBirth,sex,address,email,phone,id) => {
+    const [results, fields] = await connection.execute('update customers set fullName=?, dateOfBirth=?, sex=?, address=?, email=?, phone=? where id=?',[fullName,dateOfBirth,sex,address,email,phone,id])
     return results
 }
 
@@ -21,6 +26,6 @@ const deleteCustomer = async (id) => {
 }
 
 module.exports = {
-    getAllCustomer,createCustomer,
+    getAllCustomer,createCustomer,updateCustomer,
     getCustomerById,deleteCustomer
 }

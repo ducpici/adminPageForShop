@@ -1,30 +1,37 @@
-import {createCustomer,getCustomerById,deleteCustomer} from '../modals/customer.modal'
-// import upload from '../configs/multerConfig'
-
+import {createCustomer,getCustomerById,deleteCustomer,updateCustomer} from '../modals/customer.modal'
 
 const getAddCustomerPage = (req, res) => {
-    res.render('addCustomer.ejs')
+    res.render('addCustomer.ejs', { user_session: req.session.user })
 }
 
 const getEditCustomerPage = async (req, res) => {
     const id = req.params.id
     const result = await getCustomerById(id)
-    res.render('editCustomer.ejs', {customer: result[0]})
+    res.render('editCustomer.ejs', {customer: result[0], user_session: req.session.user})
 }
 
-export const postCreateCustomer = async (req, res) => {
+const postCreateCustomer = async (req, res) => {
     const { fullName, dateOfBirth, sex, address, email, phone } = req.body;
-    const avatar = req.file ? req.file.filename : null;
-
-    console.log("✅ Dữ liệu gửi vào DB:", { fullName, dateOfBirth, sex, address, email, phone, avatar });
 
     try {
-        await createCustomer(fullName, dateOfBirth, sex, address, email, phone, avatar);
+        await createCustomer(fullName, dateOfBirth, sex, address, email, phone);
         res.redirect("/customers");
     } catch (error) {
         res.status(500).send("Lỗi khi tạo khách hàng: " + error.message);
     }
-};
+}
+
+const postUpdateCustomer = async (req, res) => {
+    const { fullName, dateOfBirth, sex, address, email, phone } = req.body;
+    const id = req.params.id
+
+    try {
+        await updateCustomer(fullName, dateOfBirth, sex, address, email, phone, id);
+        res.redirect("/customers");
+    } catch (error) {
+        res.status(500).send("Lỗi khi sửa khách hàng: " + error.message);
+    }
+}
 
 const postDeleteCustomer = async (req, res) => {
     const id = req.params.id
@@ -32,16 +39,7 @@ const postDeleteCustomer = async (req, res) => {
     res.redirect('/customers')
 }
 
-// const storage = multer.diskStorage({
-//     destination: function (req, file, cb) {
-//       cb(null, '/src/public/images/avtCustomers/')
-//     },
-//     filename: function (req, file, cb) {
-//         cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname)); // Đổi tên file để tránh trùng
-//     }
-//   })
-
 module.exports = {
-    getAddCustomerPage,postCreateCustomer,
+    getAddCustomerPage,postCreateCustomer,postUpdateCustomer,
     getEditCustomerPage,postDeleteCustomer
 }

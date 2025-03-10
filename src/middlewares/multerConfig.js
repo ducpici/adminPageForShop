@@ -5,7 +5,7 @@ import path from "path";
 const storage = multer.diskStorage({
     
     destination: function (req, file, cb) {
-        cb(null, path.join(__dirname, "../public/images/avtCustomers")); // Lưu file vào thư mục 
+        cb(null, path.join(__dirname, "../public/images/avtUsers")); // Lưu file vào thư mục 
     },
     filename: function (req, file, cb) {
         cb(null, Date.now() + path.extname(file.originalname)); // Đổi tên file

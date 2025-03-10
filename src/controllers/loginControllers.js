@@ -10,7 +10,8 @@ const checkLogin = async (req, res) => {
         const user = await checkAccount(username, password);
         if (user.length > 0) {
             req.session.loggedin = true;
-            res.render('home.ejs', {user: req.session.user = user[0]})
+            req.session.user = user[0]; 
+            res.render('home.ejs', {user_session: req.session.user})
         } else {
             return res.status(401).json({ message: "Invalid username or password" });
         }

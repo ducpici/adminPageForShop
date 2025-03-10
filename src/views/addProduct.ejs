@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/home.css">
+    <link rel="stylesheet" href="/css/customer.css">
+    <link rel="stylesheet" href="/css/formAdd-Update.css">
+    <link rel="stylesheet" href="/assets/fontawesome-web/fontawesome-free-6.7.2-web/css/all.min.css">
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"> -->
+    <title>Document</title>
+</head>
+<body>
+    <div class="wrapper">
+        <!-- sidebar -->
+        <%- include('sidebar.ejs') %>
+        <!-- sidebar -->
+
+        <!-- content -->
+        <div class="content-wrapper">   
+            <%- include('navbarTop.ejs') %>
+            <div class="container-wrapper">
+                <div class="main">
+                    <ul class="main_heading">
+                        <li><a href=""><span>Sản phẩm/Thêm mới sản phẩm</span></a></li>
+                    </ul>
+                    <form action="create-product" method="post">
+                        <div class="input-group">
+                            <label for="">Tên sản phẩm:</label>
+                            <input class="input-text" type="text" name="productName">
+                        </div>
+                        <div class="input-group">
+                            <label for="">Loại sản phẩm:</label>
+                            <select name="type" id="">
+                                <% types.forEach((type) => { %>
+                                    <option value="<%= type.id %>"><%= type.product_type_name %></option>
+                                <% }) %>
+                            </select>
+                        </div>                        
+                        <div class="input-group">
+                            <label for="">Nhà cung cấp:</label>
+                            <select name="brand" id="">
+                                <% brands.forEach((brand) => { %>
+                                    <option value="<%= brand.id %>"><%= brand.brand_name %></option>
+                                <% }) %>
+                            </select>                            
+                        </div>
+                        <div class="input-group">
+                            <label for="">Mô tả:</label>
+                            <input class="input-text" type="text" name="description">
+                        </div>
+                        <div class="input-group">
+                            <label for="">Giá:</label>
+                            <input class="input-text" type="text" name="price">
+                        </div>
+                        <div class="input-group">
+                            <label for="">Số lượng:</label>
+                            <input class="input-text" type="text" name="quantity">
+                        </div>         
+                        <button type="submit">Thêm mới</button>
+                    </form>
+                </div>
+            </div>                
+        </div>
+        <!-- content -->
+
+        <!-- footer -->
+        <footer class="footer">
+
+        </footer>
+        <!-- footer -->
+    </div>
+    <script src="/js/home.js"></script>
+</body>
+</html>

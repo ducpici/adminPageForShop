@@ -4,11 +4,21 @@ table, th, td{
 }
 
 th, td{
-    padding: 10px 5px;
+    /* padding: 10px 5px; */
 }
 
 th{
+    padding: 10px 5px;
     background-color: #ccc;
+}
+
+tr{
+    /* padding: 5px 0; */
+}
+
+td{
+    padding: 5px;
+    background-color: #fff;
 }
 
 a{
@@ -45,4 +55,10 @@ table {
 
 .img-product{
     width: 100px;
+}
+
+#imgPreview{
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
 }
