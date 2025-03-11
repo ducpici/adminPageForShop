@@ -2,6 +2,7 @@ import express from 'express'
 import router from './src/routes/webRoute.js'
 import session from 'express-session'
 import auth_router from './src/routes/auth.route.js'
+import api_router from './src/routes/api.route.js'
 import setViewEngine from './src/configs/viewEngine.js'
 
 const app = express()
@@ -20,6 +21,7 @@ app.use(express.json())
 setViewEngine(app)
 app.use(router)
 app.use(auth_router)
+app.use(api_router)
 
 
 export default app

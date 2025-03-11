@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/home.css">
+    <link rel="stylesheet" href="/css/customer.css">
+    <link rel="stylesheet" href="/assets/fontawesome-web/fontawesome-free-6.7.2-web/css/all.min.css">
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"> -->
+    <link rel="stylesheet" href="/css/invoice.css">
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous"> -->
+    <title>Document</title>
+</head>
+<body>
+    <div class="wrapper">
+        <!-- sidebar -->
+        <%- include('sidebar.ejs') %>
+        <!-- sidebar -->
+
+        <!-- content -->
+        <div class="content-wrapper">   
+            <%- include('navbarTop.ejs') %>
+            <div class="container-wrapper">
+                <!-- <ul class="main_heading">
+                    <li><a href=""><span>/Trang lập hóa đơn</span></a></li>
+                </ul> -->
+                <div class="main">
+                    <div class="invoice">
+                    <!-- <form action="#" method="post" class="invoice"> -->
+                        <div class="infoCustomer">
+                            <fieldset class="chooseCustomer">
+                                <legend class="legend_title">Chọn khách hàng:</legend>
+                                    <input class="input-search" type="text" placeholder="Tìm kiếm khách hàng">                       
+                                    <select name="" id="customerSelect">
+                                        <% customers.forEach((customer) => { %>
+                                            <option value="<%= customer.id %>" data-name="<%= customer.fullName %>"
+                                                <% var d = new Date(customer.dateOfBirth); var day=(d.getUTCDate() + 1).toString().padStart(2,0); var month=(d.getUTCMonth() + 1).toString().padStart(2,0); var year=d.getUTCFullYear(); var dateString=day+"/"+month+"/"+year %>
+
+                                                data-birthdate="<%= dateString %>"
+                                                data-gender="<%= customer.sex === 1 ? 'Nam' : 'Nữ' %>"
+                                                data-address="<%= customer.address %>"
+                                                data-email="<%= customer.email %>"
+                                                data-phone="<%= customer.phone %>"><%= customer.fullName %> - <%= customer.phone %></option>
+                                        <% }) %>
+                                    </select>
+                            </fieldset>
+                            <fieldset class="detailCustomer">
+                                <legend class="legend_title">Thông tin khách hàng:</legend>
+                                <div class="input-group">
+                                    <label for="">Họ tên:</label>
+                                    <input class="input-text" readonly type="text" name="fullName" value="<%= customers[0].fullName %>">
+                                </div>
+                                <div class="input-group">
+                                    <label for="">Ngày sinh:</label>
+                                    <% var d = new Date(customers[0].dateOfBirth); var day=(d.getUTCDate() + 1).toString().padStart(2,0); var month=(d.getUTCMonth() + 1).toString().padStart(2,0); var year=d.getUTCFullYear(); var dateString=day+"/"+month+"/"+year %>
+                                    <input class="input-text" readonly type="text" name="dateOfBirth" value="<%= dateString %>">
+                                </div>                        
+                                <div class="input-group">
+                                    <label for="">Giới tính:</label>
+                                    <input class="input-text" readonly type="text" name="sex" value="<%= customers[0].sex === 1 ? 'Nam' : 'Nữ' %>">
+                                </div>
+                                <div class="input-group">
+                                    <label for="">Địa chỉ:</label>
+                                    <input class="input-text" readonly type="text" name="address" value="<%= customers[0].address %>">
+                                </div>
+                                <div class="input-group">
+                                    <label for="">Email:</label>
+                                    <input class="input-text" readonly type="text" name="email" value="<%= customers[0].email %>">
+                                </div>
+                                <div class="input-group">
+                                    <label for="">Số điện thoại:</label>
+                                    <input class="input-text" readonly type="text" name="phone" value="<%= customers[0].phone %>">
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="infoProduct">
+                            <fieldset class="chooseProduct">
+                                <legend class="legend_title">Chọn sản phẩm:</legend>
+                                    <input class="input-search" type="text" placeholder="Tìm kiếm sản phẩm">                       
+                                    <select name="" id="productSelect">
+                                        <% products.forEach((product) => { %>
+                                            <option value="<%= product.id %>" 
+                                                data-product_name="<%= product.product_name %>"
+                                                data-product_type="<%= product.product_type_name %>"
+                                                data-brand="<%= product.brand_name %>"
+                                                data-description="<%= product.description %>"
+                                                data-price="<%= product.price %>"
+                                                data-quantity="<%= product.quantity %>"><%= product.product_name %></option>
+                                        <% }) %>
+                                    </select>
+                            </fieldset>
+                            <fieldset class="detailProduct">
+                                <legend class="legend_title">Thông tin sản phẩm:</legend>
+                                <div class="input-group">
+                                    <label for="">Tên sản phẩm:</label>
+                                    <input class="input-text" readonly type="text" name="product_name" value="<%= products[0].product_name %>">
+                                </div>
+                                <div class="input-group">
+                                    <label for="">Loại sản phẩm:</label>
+                                    <input class="input-text" readonly type="text" name="product_type" value="<%= products[0].product_type_name %>">
+                                </div>                        
+                                <div class="input-group">
+                                    <label for="">Thương hiệu:</label>
+                                    <input class="input-text" readonly type="text" name="brand" value="<%= products[0].brand_name %>">
+                                </div>
+                                <div class="input-group">
+                                    <label for="">Mô tả:</label>
+                                    <input class="input-text" readonly type="text" name="description" value="<%= products[0].description %>">
+                                </div>
+                                <div class="input-group">
+                                    <label for="">Giá:</label>
+                                    <input class="input-text" readonly type="text" name="price" value="<%= products[0].price %>">
+                                </div>
+                                <div class="input-group">
+                                    <label for="">Số lượng trong kho:</label>
+                                    <input class="input-text" readonly type="text" name="quantity" value="<%= products[0].quantity %>">
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="infoPayment">
+                            <fieldset class="choosePayment">
+                                <legend class="legend_title">Phương thức thanh toán:</legend>
+                                <div class="input-radio">
+                                    <input type="radio" name="payment" value="0" checked><label for="">Mua trực tiếp</label>
+                                </div>
+                                <div class="input-radio">
+                                    <input type="radio" name="payment" value="1"><label for="">Mua trực tuyến - Thanh toán khi nhận hàng</label>
+                                </div>
+                                <div class="input-radio">
+                                    <input type="radio" name="payment" value="2"><label for="">Mua trực tuyến - Chuyển khoản</label>
+                                </div>
+                            </fieldset>
+                            <div class="buttons">
+                                <button id="addToList">Thêm sản phẩm vào danh sách mua</button>
+                                <button id="saveInvoice">Lưu hóa đơn</button>
+                            </div>
+                            
+                        </div>
+
+                    <!-- </form> -->
+                    </div>
+                    <div class="listOrder">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>STT</th>
+                                    <th>Tên sản phẩm</th>
+                                    <th>Loại sản phẩm</th>
+                                    <th>Thương hiệu</th>
+                                    <th>Đơn giá</th>
+                                    <th>Số lượng</th>
+                                    <th>Thành tiền</th>
+                                    <th>Thao tác</th>
+                                </tr>                                
+                            </thead>
+
+                            <!-- <tr>
+
+                            </tr>
+                            <tr class="total">
+                                <td class="textColspan" colspan="6"></td>
+                                <td>10000</td>
+                            </tr> -->
+                            <tbody id="listOrderProduct">
+
+                            </tbody>
+                        </table>                        
+                    </div>
+                </div>
+            </div>                
+        </div>
+        <!-- content -->
+
+        <!-- footer -->
+        <footer class="footer">
+
+        </footer>
+        <!-- footer -->
+    </div>
+    <script src="/js/home.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const selectCustomer = document.getElementById("customerSelect");
+    
+            selectCustomer.addEventListener("change", function () {
+                // Lấy option được chọn
+                const selectedOption = this.options[this.selectedIndex];
+    
+                // Cập nhật thông tin vào các ô input
+                document.querySelector('input[name="fullName"]').value = selectedOption.getAttribute("data-name") || "";
+                document.querySelector('input[name="dateOfBirth"]').value = selectedOption.getAttribute("data-birthdate") || "";
+                document.querySelector('input[name="sex"]').value = selectedOption.getAttribute("data-gender") || "";
+                document.querySelector('input[name="address"]').value = selectedOption.getAttribute("data-address") || "";
+                document.querySelector('input[name="email"]').value = selectedOption.getAttribute("data-email") || "";
+                document.querySelector('input[name="phone"]').value = selectedOption.getAttribute("data-phone") || "";
+            });
+
+            const selectProduct = document.getElementById("productSelect");
+    
+            selectProduct.addEventListener("change", function () {
+                // Lấy option được chọn
+                const selectedOption = this.options[this.selectedIndex];
+
+                // Cập nhật thông tin vào các ô input
+                document.querySelector('input[name="product_name"]').value = selectedOption.getAttribute("data-product_name") || "";
+                document.querySelector('input[name="product_type"]').value = selectedOption.getAttribute("data-product_type") || "";
+                document.querySelector('input[name="brand"]').value = selectedOption.getAttribute("data-brand") || "";
+                document.querySelector('input[name="description"]').value = selectedOption.getAttribute("data-description") || "";
+                document.querySelector('input[name="price"]').value = selectedOption.getAttribute("data-price") || "";
+                document.querySelector('input[name="quantity"]').value = selectedOption.getAttribute("data-quantity") || "";
+            });
+        });
+
+        let cartItems = [];
+
+        const btnAdd = document.querySelector('#addToList')
+
+        btnAdd.addEventListener('click', () => {
+            selectCustomer.disabled = true
+            addProduct()
+        })
+
+        function addProduct() {
+            const select = document.getElementById("productSelect");
+            const selectedOption = select.options[select.selectedIndex];
+
+            if (!selectedOption.value) return;
+
+            const productId = selectedOption.value;
+            const productName = selectedOption.getAttribute("data-product_name");
+            const productTypeName = selectedOption.getAttribute("data-product_type");
+            const productBrandName = selectedOption.getAttribute("data-brand");
+            const productPrice = parseFloat(selectedOption.getAttribute("data-price"));
+
+            let existingProduct = cartItems.find(item => item.productId === productId);
+            if (existingProduct) {
+                existingProduct.quantity++;
+            } else {
+                cartItems.push({ productId, productName, productTypeName, productBrandName, price: productPrice, quantity: 1 });
+            }
+
+            renderInvoiceTable();
+        }
+
+        function renderInvoiceTable() {
+            const tbody = document.querySelector("#listOrderProduct");
+            tbody.innerHTML = "";
+            var count=0;
+            let totalAmount = 0;
+            cartItems.forEach((item, index) => {
+                let itemTotal = item.price * item.quantity;
+                totalAmount += itemTotal; // Cộng dồn vào tổng tiền
+                count++
+                tbody.innerHTML += `
+                    <tr>
+                        <td>${count}</td>
+                        <td>${item.productName}</td>
+                        <td>${item.productTypeName}</td>
+                        <td>${item.productBrandName}</td>
+                        <td>${item.price}</td>
+                        <td><input type="number" value="${item.quantity}" min="1" onchange="updateQuantity(${index}, this.value)"></td>
+                        
+                        <td>${itemTotal}</td>
+                        <td><button onclick="removeProduct(${index})">Xóa</button></td>
+                    </tr>
+                `;
+            });
+            tbody.innerHTML += `
+                <tr>
+                    <td class="textColspan" colspan="6"><strong>Tổng:</strong></td>
+                    <td><strong>${totalAmount}</strong></td>
+                    <td></td>
+                </tr>`
+        }
+
+        function updateQuantity(index, value) {
+            cartItems[index].quantity = parseInt(value);
+            renderInvoiceTable();
+        }
+
+        function removeProduct(index) {
+            cartItems.splice(index, 1);
+            renderInvoiceTable();
+        }
+
+        const selectCustomer = document.getElementById("customerSelect");
+        const selectedPayment = document.querySelector('input[name="payment"]:checked');
+
+        function postCreateInvoice(){
+            fetch('/api/save-invoice', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({idCustomer: selectCustomer.value , idPayment: selectedPayment.value, products: cartItems })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert("Hóa đơn đã lưu thành công!");
+                    cartItems = [];
+                    renderInvoiceTable();
+                } else {
+                    alert("Lưu hóa đơn thất bại!");
+                }
+            });
+        }
+
+        const btnSaveInvoice = document.querySelector('#saveInvoice')
+        btnSaveInvoice.addEventListener('click', () => {
+            postCreateInvoice()
+        })
+
+    </script>
+</body>
+</html>

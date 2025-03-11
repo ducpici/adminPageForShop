@@ -7,6 +7,7 @@ import {getProductsPage,getAddProductPage,postCreateProduct,getEditProductPage,p
 import {getOrdersPage} from '../controllers/orderControllers'
 import {getBrandsPage,getAddBrandPage,postCreateBrand,getEditBrandPage,postUpdateBrand,postDeleteBrand} from '../controllers/brandControllers'
 import {getProductTypesPage,getAddProductTypePage,postCreateProductType,getEditProductTypePage,postUpdateProductType,postDeleteProductType} from '../controllers/productTypeControllers'
+import {getInvoicePage} from '../controllers/invoiceControllers'
 import upload from '../middlewares/multerConfig'
 const router = express.Router()
 
@@ -48,4 +49,5 @@ router.get('/edit-product_type/:id',loggedin, getEditProductTypePage)
 router.post('/edit-product_type/update-product_type/:id',loggedin, postUpdateProductType)
 router.get('/delete-product_type/:id',loggedin, postDeleteProductType)
 
+router.get('/lap-hoa-don', loggedin, getInvoicePage)
 export default router
