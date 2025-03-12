@@ -5,12 +5,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/home.css">
     <link rel="stylesheet" href="/css/customer.css">
+    <link rel="stylesheet" href="/css/order.css">
     <link rel="stylesheet" href="/assets/fontawesome-web/fontawesome-free-6.7.2-web/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     <title>Document</title>
 </head>
 <body>
     <div class="wrapper">
+        <div id="statusModal" class="modal">
+            <div class="modal-content">
+                <!-- <form action="" method="post"> -->
+                    <div class="modal-header">
+                        <span>Cập nhật trạng thái</span>
+                        <span class="close" id="closeModal">&times;</span>
+                    </div>
+                    <div class="modal-body">
+                        <label for="status">Trạng thái</label>
+                        <select id="status">
+                            <option value="1">Đã thanh toán</option>
+                            <option value="2">Chờ thanh toán</option>
+                            <option value="0">Đã hủy</option>
+                        </select>
+                    </div>
+                    <div class="modal-footer">
+                        <!-- <button class="btn-close" id="closeModalBtn">Đóng</button> -->
+                        <button class="btn-save" id="btnSave">Lưu</button>
+                    </div>
+                <!-- </form> -->
+            </div>
+        </div>
         <!-- sidebar -->
         <%- include('sidebar.ejs') %>
         <!-- sidebar -->
@@ -20,6 +43,7 @@
             <%- include('navbarTop.ejs') %>
             <div class="container-wrapper">
                 <div class="main">
+
                     <ul class="main_heading">
                         <li><a href=""><span>Đơn hàng/</span></a></li>
                     </ul>
@@ -30,34 +54,44 @@
                             <th>Mã đơn hàng</th>
                             <th>Mã khách hàng</th>
                             <th>Tên khách hàng</th>
-                            <th>Thời gian lập</th>
+                            <th>Ngày mua</th>
                             <th>Tổng đơn hàng</th>
                             <th>Phương thức thanh toán</th>
                             <th>Trạng thái</th>
+                            <th>Nhân viên lập</th>
                             <th>Chức năng</th>
                         </tr>
                         <% var count=0; %>
                         <% data.forEach((order) => { count++ %>
                         <tr>
                             <td><%= count %></td>
-                            <td><%= order.id %></td>
+                            <td><%= order.order_id %></td>
                             <td><%= order.customer_id %></td>
-                            <td><%= order.fullName %></td>
+                            <td><%= order.customerName %></td>
                             <% var d = new Date(order.date); var day=(d.getUTCDate() + 1).toString().padStart(2,0); var month=(d.getUTCMonth() + 1).toString().padStart(2,0); var year=d.getUTCFullYear(); var dateString=day+"/"+month+"/"+year %>
                             <td><%= dateString %></td>
                             <td><%= order.total %></td>
-                            <td><%= order.payment %></td>
-                            <!-- <td><%= order.status %></td>   -->
                             <td>
-                                <% if(order.status == 1){ %>
-                                    Đã thanh toán
-                                <% } else if(order.status == 2) { %>
-                                    Chưa thanh toán    
-                                <% } else if(order.status == 3){ %>
-                                    Chờ xử lý
+                                <% if(order.payment == 0){ %>
+                                    Mua trực tiếp
+                                <% } else if(order.payment == 1) { %>
+                                    Mua trực tuyến - Thanh toán khi nhận hàng 
+                                <% } else if(order.payment == 2){ %>
+                                    Mua trực tuyến - Chuyển khoản
                                 <% } %>
                             </td>
-                            <td class="actions"><a class="infoIcon actionIcon" href="info-order/<%= order.id %>"><i class="fa-solid fa-circle-info"></i></a> <a class="editIcon actionIcon" href="edit-order/<%= order.id %>"><i class="fa-solid fa-pen-to-square"></i></a></td>
+                            <!-- <td><%= order.status %></td>   -->
+                            <td>
+                                <% if(order.status == 0){ %>
+                                    Đã hủy
+                                <% } else if(order.status == 1){ %>
+                                    Đã thanh toán
+                                <% } else if(order.status == 2){ %>
+                                    Chưa thanh toán    
+                                <% } %>
+                            </td>
+                            <td><%= order.userName %></td>
+                            <td class="actions"><a class="infoIcon actionIcon" href="order-detail/<%= order.order_id %>"><i class="fa-solid fa-circle-info"></i></a> | <a id="<%= order.order_id %>" class="editIcon actionIcon updateStatus" href="edit-order/<%= order.order_id %>"><i class="fa-solid fa-pen-to-square"></i></a></td>
                         </tr>    
                         <% }) %>
                     </table>
@@ -73,5 +107,37 @@
         <!-- footer -->
     </div>
     <script src="/js/home.js"></script>
+    <script>
+        const modal = document.getElementById("statusModal");
+        const closeModal = document.getElementById("closeModal");
+        const updateStatus = document.querySelectorAll(".updateStatus")
+        const btnSave = document.getElementById("btnSave")
+        const idStatus = document.getElementById("status")
+        var order_id=0
+
+        updateStatus.forEach(item => {
+            item.addEventListener("click", (event) => {
+                event.preventDefault();              
+                order_id = item.getAttribute('id') 
+                modal.style.display = "block";
+            });
+        });
+
+        btnSave.addEventListener('click',()=> {
+            
+        })
+
+        closeModal.addEventListener("click", () => {
+            modal.style.display = "none";
+        });
+
+
+        window.addEventListener("click", (e) => {
+            if (e.target === modal) {
+                modal.style.display = "none";
+            }
+        });
+
+    </script>
 </body>
 </html>

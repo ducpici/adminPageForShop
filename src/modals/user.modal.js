@@ -16,7 +16,7 @@ const getUserById = async (id) => {
 }
 
 const checkAccount = async (username,password) => {
-    const [results, fields] = await connection.execute('select * from users, user_role where users.role_id = user_role.id and username = ? and password = ?', [username, password])
+    const [results, fields] = await connection.execute('select *, users.id as user_id from users, user_role where users.role_id = user_role.id and username = ? and password = ?', [username, password])
     return results
 }
 

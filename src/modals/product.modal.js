@@ -21,10 +21,15 @@ const updateProduct = async (productName, type, brand, description, price, quant
     return results
 }
 
+const updateQuantityProduct = async (quantity, id) => {
+    const [results, fields] = await connection.execute('update products set quantity=? where id=?', [quantity, id])
+    return results
+}
+
 const deleteProduct = async (id) => {
     const [results, fields] = await connection.execute('delete from products where id=?', [id])
     return results
 }
 module.exports = {
-    getAllProduct,getProductById,createProduct,updateProduct,deleteProduct
+    getAllProduct,getProductById,createProduct,updateProduct,deleteProduct,updateQuantityProduct
 }

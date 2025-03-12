@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/home.css">
+    <link rel="stylesheet" href="/css/customer.css">
+    <link rel="stylesheet" href="/assets/fontawesome-web/fontawesome-free-6.7.2-web/css/all.min.css">
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"> -->
+    <link rel="stylesheet" href="/css/invoice.css">
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous"> -->
+    <title>Document</title>
+</head>
+<body>
+    <div class="wrapper">
+        <!-- sidebar -->
+        <%- include('sidebar.ejs') %>
+        <!-- sidebar -->
+
+        <!-- content -->
+        <div class="content-wrapper">   
+            <%- include('navbarTop.ejs') %>
+            <div class="container-wrapper">
+                <ul class="main_heading">
+                    <li><a href=""><span>/Thông tin chi tiết đơn hàng</span></a></li>
+                </ul>
+                <div class="main">
+
+                    <div class="invoice">                 
+                            <div class="infoCustomer">
+                                <fieldset class="detailCustomer">
+                                    <legend class="legend_title">Thông tin khách hàng:</legend>
+                                    <div class="input-group">
+                                        <label for="">Họ tên:</label>
+                                        <input class="input-text" readonly type="text" name="fullName" value="<%= datas[0].fullName %>">
+                                    </div>
+                                    <div class="input-group">
+                                        <label for="">Ngày sinh:</label>
+                                        <% var d = new Date(datas[0].dateOfBirth); var day=(d.getUTCDate() + 1).toString().padStart(2,0); var month=(d.getUTCMonth() + 1).toString().padStart(2,0); var year=d.getUTCFullYear(); var dateString=day+"/"+month+"/"+year %>
+                                        <input class="input-text" readonly type="text" name="dateOfBirth" value="<%= dateString %>">
+                                    </div>                        
+                                    <div class="input-group">
+                                        <label for="">Giới tính:</label>
+                                        <input class="input-text" readonly type="text" name="sex" value="<%= datas[0].sex === 1 ? 'Nam' : 'Nữ' %>">
+                                    </div>
+                                    <div class="input-group">
+                                        <label for="">Địa chỉ:</label>
+                                        <input class="input-text" readonly type="text" name="address" value="<%= datas[0].address %>">
+                                    </div>
+                                    <div class="input-group">
+                                        <label for="">Email:</label>
+                                        <input class="input-text" readonly type="text" name="email" value="<%= datas[0].email %>">
+                                    </div>
+                                    <div class="input-group">
+                                        <label for="">Số điện thoại:</label>
+                                        <input class="input-text" readonly type="text" name="phone" value="<%= datas[0].phone %>">
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <div class="infoProduct">
+                                <fieldset class="chooseProduct">
+                                    <legend class="legend_title">Chọn sản phẩm:</legend>
+                                        <input class="input-search" type="text" placeholder="Tìm kiếm sản phẩm">                       
+                                        <select name="" id="productSelect">
+                                            <% datas.forEach((product) => { %>
+                                                <option value="<%= product.product_id %>" 
+                                                    data-product_name="<%= product.product_name %>"
+                                                    data-product_type="<%= product.product_type_name %>"
+                                                    data-brand="<%= product.brand_name %>"
+                                                    data-description="<%= product.description %>"
+                                                    data-price="<%= product.price %>"
+                                                    data-quantity="<%= product.quantity %>"><%= product.product_name %></option>
+                                            <% }) %>
+                                        </select>
+                                </fieldset>
+                                <fieldset class="detailProduct">
+                                    <legend class="legend_title">Thông tin sản phẩm:</legend>
+                                    <div class="input-group">
+                                        <label for="">Tên sản phẩm:</label>
+                                        <input class="input-text" readonly type="text" name="product_name" value="<%= datas[0].product_name %>">
+                                    </div>
+                                    <div class="input-group">
+                                        <label for="">Loại sản phẩm:</label>
+                                        <input class="input-text" readonly type="text" name="product_type" value="<%= datas[0].product_type_name %>">
+                                    </div>                        
+                                    <div class="input-group">
+                                        <label for="">Thương hiệu:</label>
+                                        <input class="input-text" readonly type="text" name="brand" value="<%= datas[0].brand_name %>">
+                                    </div>
+                                    <div class="input-group">
+                                        <label for="">Mô tả:</label>
+                                        <input class="input-text" readonly type="text" name="description" value="<%= datas[0].description %>">
+                                    </div>
+                                    <div class="input-group">
+                                        <label for="">Giá:</label>
+                                        <input class="input-text" readonly type="text" name="price" value="<%= datas[0].price %>">
+                                    </div>
+                                    <div class="input-group">
+                                        <label for="">Số lượng trong kho:</label>
+                                        <input class="input-text" readonly type="text" name="quantity" value="<%= datas[0].quantity %>">
+                                    </div>
+                                </fieldset>
+                            </div>
+                    </div>
+                    <div class="listOrder">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>STT</th>
+                                    <th>Tên sản phẩm</th>
+                                    <th>Loại sản phẩm</th>
+                                    <th>Thương hiệu</th>
+                                    <th>Đơn giá</th>
+                                    <th>Số lượng</th>
+                                    <th>Thành tiền</th>
+                                </tr>                                
+                            </thead>
+                            <tbody id="listOrderProduct">                                
+                                <% var count=0 %>
+                                <% datas.forEach((data) => { count++ %>
+                                    <tr>
+                                        <td><%= count %></td>
+                                        <td><%= data.product_name %></td>
+                                        <td><%= data.product_type_name %></td>
+                                        <td><%= data.brand_name %></td>
+                                        <td><%= data.price %></td>
+                                        <td><%= data.quantity_order %></td>
+                                        <td><%= data.price * data.quantity_order %></td>
+                                    </tr>
+                                <% }) %>                               
+                            </tbody>
+                        </table>       
+                    
+                    </div>
+                </div>
+            </div>                
+        </div>
+        <!-- content -->
+
+        <!-- footer -->
+        <footer class="footer">
+
+        </footer>
+        <!-- footer -->
+    </div>
+    <script src="/js/home.js"></script>
+    <script>
+        const selectProduct = document.getElementById("productSelect");    
+        selectProduct.addEventListener("change", function () {
+            // Lấy option được chọn
+            const selectedOption = this.options[this.selectedIndex];
+
+            // Cập nhật thông tin vào các ô input
+            document.querySelector('input[name="product_name"]').value = selectedOption.getAttribute("data-product_name") || "";
+            document.querySelector('input[name="product_type"]').value = selectedOption.getAttribute("data-product_type") || "";
+            document.querySelector('input[name="brand"]').value = selectedOption.getAttribute("data-brand") || "";
+            document.querySelector('input[name="description"]').value = selectedOption.getAttribute("data-description") || "";
+            document.querySelector('input[name="price"]').value = selectedOption.getAttribute("data-price") || "";
+            document.querySelector('input[name="quantity"]').value = selectedOption.getAttribute("data-quantity") || "";
+        });
+    </script>
+</body>
+</html>

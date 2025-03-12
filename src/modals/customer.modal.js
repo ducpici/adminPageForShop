@@ -10,6 +10,11 @@ const getCustomerById = async (id) => {
     return results    
 }
 
+const getCustomerByName = async (name) => {
+    const [results, fields] = await connection.execute('select * from customers where fullName like ?', [`%${name}%`] )
+    return results    
+}
+
 const createCustomer = async (fullName,dateOfBirth,sex,address,email,phone) => {
     const [results, fields] = await connection.execute('insert into customers (fullName, dateOfBirth,sex,address,email,phone) values (?,?,?,?,?,?)',[fullName,dateOfBirth,sex,address,email,phone])
     return results
@@ -27,5 +32,5 @@ const deleteCustomer = async (id) => {
 
 module.exports = {
     getAllCustomer,createCustomer,updateCustomer,
-    getCustomerById,deleteCustomer
+    getCustomerById,deleteCustomer,getCustomerByName
 }

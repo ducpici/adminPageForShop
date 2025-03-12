@@ -5,6 +5,7 @@ import {getAddCustomerPage,postCreateCustomer,getEditCustomerPage,postUpdateCust
 import {getUsersPage,getAddUserPage,postCreateUser,getEditUserPage,postUpdateUser,postDeleteUser} from '../controllers/userControllers'
 import {getProductsPage,getAddProductPage,postCreateProduct,getEditProductPage,postUpdateProduct,postDeleteProduct} from '../controllers/productControllers'
 import {getOrdersPage} from '../controllers/orderControllers'
+import {getDetailOrderPage} from '../controllers/order_detailControllers'
 import {getBrandsPage,getAddBrandPage,postCreateBrand,getEditBrandPage,postUpdateBrand,postDeleteBrand} from '../controllers/brandControllers'
 import {getProductTypesPage,getAddProductTypePage,postCreateProductType,getEditProductTypePage,postUpdateProductType,postDeleteProductType} from '../controllers/productTypeControllers'
 import {getInvoicePage} from '../controllers/invoiceControllers'
@@ -27,6 +28,8 @@ router.post('/update-user/:id', loggedin, upload.single("avatar"), postUpdateUse
 router.get('/delete-user/:id',loggedin, postDeleteUser)
 
 router.get('/orders',loggedin, getOrdersPage)
+
+router.get('/order-detail/:id',loggedin, getDetailOrderPage)
 
 router.get('/products',loggedin, getProductsPage)
 router.get('/add-product', loggedin, getAddProductPage)

@@ -30,7 +30,8 @@
                         <div class="infoCustomer">
                             <fieldset class="chooseCustomer">
                                 <legend class="legend_title">Chọn khách hàng:</legend>
-                                    <input class="input-search" type="text" placeholder="Tìm kiếm khách hàng">                       
+                                    <ul class="resultSearch" id="listCustomerResult"></ul>
+                                    <input class="input-search" id="customerSearch" type="text" placeholder="Tìm kiếm khách hàng">                       
                                     <select name="" id="customerSelect">
                                         <% customers.forEach((customer) => { %>
                                             <option value="<%= customer.id %>" data-name="<%= customer.fullName %>"
@@ -79,7 +80,7 @@
                                     <input class="input-search" type="text" placeholder="Tìm kiếm sản phẩm">                       
                                     <select name="" id="productSelect">
                                         <% products.forEach((product) => { %>
-                                            <option value="<%= product.id %>" 
+                                            <option value="<%= product.product_id %>" 
                                                 data-product_name="<%= product.product_name %>"
                                                 data-product_type="<%= product.product_type_name %>"
                                                 data-brand="<%= product.brand_name %>"
@@ -179,9 +180,10 @@
     </div>
     <script src="/js/home.js"></script>
     <script>
+
+
         document.addEventListener("DOMContentLoaded", function () {
-            const selectCustomer = document.getElementById("customerSelect");
-    
+            // const selectCustomer = document.getElementById("customerSelect");
             selectCustomer.addEventListener("change", function () {
                 // Lấy option được chọn
                 const selectedOption = this.options[this.selectedIndex];
@@ -209,7 +211,65 @@
                 document.querySelector('input[name="price"]').value = selectedOption.getAttribute("data-price") || "";
                 document.querySelector('input[name="quantity"]').value = selectedOption.getAttribute("data-quantity") || "";
             });
+
         });
+
+        const customerSearch = document.querySelector('#customerSearch')
+        customerSearch.addEventListener('focus', () => {
+            listCustomerResult.style.display = 'block'; 
+        });
+        customerSearch.addEventListener('blur', () => {
+            setTimeout(() => {  
+                listCustomerResult.style.display = 'none';
+            }, 200);
+        });
+
+        const listCustomerResult = document.querySelector('#listCustomerResult')
+        customerSearch.addEventListener('change', (e) => {
+
+            requestAnimationFrame(() => {
+                fetch(`/api/customers`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({name: customerSearch.value})
+                })
+                .then(response => response.json())
+                .then((data) => {
+                    const col1='fullName'
+                    const col2='phone'
+                    const className='listCustomer'
+                    showDataSearch(listCustomerResult, data.customers, col1, col2, className)
+                })
+            })
+            if(customerSearch.value == ''){
+                listCustomerResult.innerHTML=''
+            }
+            console.log(listCustomer)
+        })         
+        
+        function showDataSearch(element, datas, col1, col2, className){
+            console.log(datas)
+            const html=''
+            element.innerHTML=''
+            datas.forEach((data) => {
+                element.innerHTML += `
+                    <li class="${className}" id=${data.id} >${data[col1]} - ${data[col2]}</li>
+                `
+            })        
+        }
+
+        const listCustomer = document.querySelectorAll('.listCustomer')
+        
+        setTimeout(handleChooseCustomer,10)
+        function handleChooseCustomer(){
+            for(let i in listCustomer){
+                listCustomer[i].addEventListener('click', (e) => {
+                    console.log('click ',listCustomer[i])
+                })
+            }
+        }
+        
+
 
         let cartItems = [];
 

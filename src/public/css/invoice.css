@@ -1,5 +1,6 @@
 .invoice{
     display: flex;
+    justify-content: space-between;
 }
 
 .input-group{
@@ -81,4 +82,24 @@ fieldset{
 .buttons button{
     height: 40px;
     padding: 5px;
+}
+
+.resultSearch{
+    position: absolute;
+    top: 52px;
+    left: 20px;
+    background-color: #fff;
+    width: 300px;
+    /* display: none; */
+}
+.resultSearch li{
+    padding: 5px 10px;
+    cursor: pointer;
+}
+.resultSearch li:hover{
+    background-color: #eee;
+}
+
+.chooseCustomer{
+    position: relative;
 }

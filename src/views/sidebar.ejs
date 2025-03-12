@@ -5,7 +5,12 @@
     <div class="profile_container">
         <div class="profile">
             <div class="profile_img">
-                <img src="/images/avtUsers/<%= user_session.avtUser %>" alt="">
+                <!-- <img src="/images/avtUsers/<%= user_session.avtUser %>" alt=""> -->
+                <% if(user_session.avtUser == '') { %>
+                    <img class="avatar_user" src="/images/avtUsers/default_avt.jpg %>" alt="">    
+                <% } else { %>         
+                    <img class="avatar_user" src="/images/avtUsers/<%= user_session.avtUser %>" alt="">
+                <% } %>
             </div>
             <div class="profile_content">
                 <h3><%= user_session.fullName %></h3>
