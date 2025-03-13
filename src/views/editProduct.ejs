@@ -24,7 +24,12 @@
                     <ul class="main_heading">
                         <li><a href=""><span>Sản phẩm/Chỉnh sửa sản phẩm</span></a></li>
                     </ul>
-                    <form action="/update-product/<%= product.id %>" method="post">
+                    <!-- <form action="/update-product/<%= product.id %>" method="post"> -->
+                    <form id="updateForm">
+                        <div class="input-group" style="display: none;">
+                            <label for="">Mã sản phẩm:</label>
+                            <input class="input-text" type="text" id="productId" value="<%= product.id %>">
+                        </div>
                         <div class="input-group">
                             <label for="">Tên sản phẩm:</label>
                             <input class="input-text" type="text" name="productName" value="<%= product.product_name %>">
@@ -56,7 +61,19 @@
                         <div class="input-group">
                             <label for="">Số lượng:</label>
                             <input class="input-text" type="text" name="quantity" value="<%= product.quantity %>">
-                        </div>         
+                        </div>
+                        <div class="input-group">
+                            <label for="">Hình ảnh:</label>
+                            <input type="file" name="avatar" id="imgInput"> 
+                            <input type="hidden" id="oldImage" value="<%= product.img %>">                      
+                        </div>  
+                        <div class="input-group">
+                            <% if(product.img == 'none') { %>
+                                <img id="imgPreview" src="/images/avtUsers/default_imgProduct.jpg %>" alt="">    
+                            <% } else { %>         
+                                <img id="imgPreview" src="/images/avtUsers/<%= product.img %>" alt="">
+                            <% } %>
+                        </div>             
                         <button type="submit">Cập nhật</button>
                     </form>
                 </div>
@@ -71,5 +88,54 @@
         <!-- footer -->
     </div>
     <script src="/js/home.js"></script>
+    <script>
+        document.getElementById("imgInput").addEventListener("change", function(event) {
+            const file = event.target.files[0]; // Lấy file được chọn
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById("imgPreview").src = e.target.result; // Gán ảnh preview
+                };
+                reader.readAsDataURL(file); // Đọc file ảnh
+            }
+        });
+        document.getElementById("updateForm").addEventListener("submit", function(event) {
+        event.preventDefault();
+    
+        const formData = new FormData();
+        const fileInput = document.getElementById("imgInput");
+        const input = document.forms["updateForm"];
+        
+        if (fileInput.files.length > 0) {
+            formData.append("avatar", fileInput.files[0]); // Nếu có ảnh mới, gửi ảnh mới
+        } else {
+            formData.append("avatar", document.getElementById("oldImage").value); // Không chọn ảnh => giữ ảnh cũ
+        }
+    
+        // Gửi formData lên server
+        const product_id = document.getElementById('productId')
+        formData.append("productName", input["productName"].value);
+        formData.append("type", input["type"].value);
+        formData.append("brand", input["brand"].value);
+        formData.append("description", input["description"].value);
+        formData.append("price", input["price"].value);
+        formData.append("quantity", input["quantity"].value);
+        formData.append("id", product_id.value)
+        fetch(`/update-product/${product_id.value}`, {
+            method: "POST",
+            body: formData,
+        })
+        .then(response => response.json())
+        .then(data => {
+            if(data.success){
+                alert("Cập nhật thành công!")
+                window.location.href = data.redirect;
+            }else {
+                alert("Lỗi: " + data.error);
+            }
+        })
+        .catch(error => console.error("Lỗi:", error));
+    });
+    </script>
 </body>
 </html>

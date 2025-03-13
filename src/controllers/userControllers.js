@@ -1,4 +1,4 @@
-import {getAllUser,createUser,getAllRole,getUserById,updateUser} from '../modals/user.modal'
+import {getAllUser,createUser,getAllRole,getUserById,updateUser,deleteUser} from '../modals/user.modal'
 
 const getUsersPage = async (req, res) => {
     const users = await getAllUser()
@@ -19,13 +19,11 @@ const getEditUserPage = async (req, res) => {
 
 const postCreateUser = async (req, res) => {
     const { fullName, dateOfBirth, sex, address, email, phone, user_role, username, password } = req.body;
-    const avatar = req.file ? req.file.filename : null;
-
-    console.log("✅ Dữ liệu gửi vào DB:", { fullName, dateOfBirth, sex, address, email, phone, user_role, username, password, avatar });
-
+    const avatar = req.file ? req.file.filename : 'none';
     try {
         await createUser(fullName, dateOfBirth, sex, address, email, phone, user_role, username, password, avatar);
-        res.redirect("/users");
+        // res.json({ success: true, message: "Thêm thành công!", redirect: "/users" });
+        res.redirect('/users')
     } catch (error) {
         res.status(500).send("Lỗi khi tạo nhân viên: " + error.message);
     }
@@ -33,24 +31,20 @@ const postCreateUser = async (req, res) => {
 
 const postUpdateUser = async (req, res) => {
     const { fullName, dateOfBirth, sex, address, email, phone, user_role, username, password } = req.body;
-    const avatar = req.file ? req.file.filename : null;
+    const avatar = req.file ? req.file.filename : req.body.avatar;
     const id = req.params.id
-
-    console.log('body: ',req.body)
-    console.log('param: ',req.params)
-    console.log('avt: ',req.file.filename)
-
-
     try {
         await updateUser(fullName, dateOfBirth, sex, address, email, phone, user_role, username, password, avatar, id);
-        res.redirect("/users");
+        res.json({ success: true, message: "Cập nhật thành công!", redirect: "/users" });
     } catch (error) {
         res.status(500).send("Lỗi khi sửa nhân viên: " + error.message);
     }
 }
 
-const postDeleteUser = (req, res) => {
-
+const postDeleteUser = async (req, res) => {
+    const id = req.params.id
+    await deleteUser(id)
+    res.redirect('/users')
 }
 
 module.exports = {

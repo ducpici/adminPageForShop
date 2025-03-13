@@ -122,10 +122,13 @@
                             <fieldset class="choosePayment">
                                 <legend class="legend_title">Phương thức thanh toán:</legend>
                                 <div class="input-radio">
-                                    <input type="radio" name="payment" value="0" checked><label for="">Mua trực tiếp</label>
+                                    <input type="radio" name="payment" value="0" checked><label for="">Mua trực tiếp - Tiền mặt</label>
                                 </div>
                                 <div class="input-radio">
-                                    <input type="radio" name="payment" value="1"><label for="">Mua trực tuyến - Thanh toán khi nhận hàng</label>
+                                    <input type="radio" name="payment" value="1" checked><label for="">Mua trực tiếp - Chuyển khoản</label>
+                                </div>
+                                <div class="input-radio">
+                                    <input type="radio" name="payment" value="3"><label for="">Mua trực tuyến - Thanh toán khi nhận hàng</label>
                                 </div>
                                 <div class="input-radio">
                                     <input type="radio" name="payment" value="2"><label for="">Mua trực tuyến - Chuyển khoản</label>
@@ -344,9 +347,10 @@
         }
 
         const selectCustomer = document.getElementById("customerSelect");
-        const selectedPayment = document.querySelector('input[name="payment"]:checked');
+        
 
         function postCreateInvoice(){
+            const selectedPayment = document.querySelector('input[name="payment"]:checked');
             fetch('/api/save-invoice', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },

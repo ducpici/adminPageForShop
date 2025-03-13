@@ -23,7 +23,7 @@
                         <label for="status">Trạng thái</label>
                         <select id="status">
                             <option value="1">Đã thanh toán</option>
-                            <option value="2">Chờ thanh toán</option>
+                            <option value="2">Chờ xử lý</option>
                             <option value="0">Đã hủy</option>
                         </select>
                     </div>
@@ -73,11 +73,13 @@
                             <td><%= order.total %></td>
                             <td>
                                 <% if(order.payment == 0){ %>
-                                    Mua trực tiếp
+                                    Mua trực tiếp - Tiền mặt
                                 <% } else if(order.payment == 1) { %>
-                                    Mua trực tuyến - Thanh toán khi nhận hàng 
-                                <% } else if(order.payment == 2){ %>
+                                    Mua trực tiếp - Chuyển khoản 
+                                <% } if(order.payment == 2){ %>
                                     Mua trực tuyến - Chuyển khoản
+                                <% } else if(order.payment == 3){ %>
+                                    Mua trực tuyến - Thanh toán khi nhận hàng
                                 <% } %>
                             </td>
                             <!-- <td><%= order.status %></td>   -->
@@ -87,7 +89,7 @@
                                 <% } else if(order.status == 1){ %>
                                     Đã thanh toán
                                 <% } else if(order.status == 2){ %>
-                                    Chưa thanh toán    
+                                    Chờ xử lý    
                                 <% } %>
                             </td>
                             <td><%= order.userName %></td>
@@ -124,7 +126,21 @@
         });
 
         btnSave.addEventListener('click',()=> {
-            
+            modal.style.display = "none";
+            fetch(`/api/update-order`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({order_id: order_id, idStatus: idStatus.value})
+            })
+            .then(response => response.json())
+            .then(data => {
+                if(data.message == 'success'){
+                    alert('Cập nhật trạng thái thành công!')
+                    location.reload()
+                } else  {
+                    alert('Có lỗi xảy ra!')
+                }
+            })
         })
 
         closeModal.addEventListener("click", () => {

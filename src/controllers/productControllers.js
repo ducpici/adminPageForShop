@@ -23,9 +23,9 @@ const getEditProductPage = async (req, res) => {
 
 const postCreateProduct = async (req, res) => {
     const { productName, type, brand, description, price, quantity } = req.body;
-
+    const avatar = req.file ? req.file.filename : 'none';
     try {
-        await createProduct(productName, type, brand, description, price, quantity);
+        await createProduct(productName, type, brand, description, price, quantity, avatar);
         res.redirect("/products");
     } catch (error) {
         res.status(500).send("Lỗi khi tạo sản phẩm: " + error.message);
@@ -35,9 +35,10 @@ const postCreateProduct = async (req, res) => {
 const postUpdateProduct = async (req, res) => {
     const { productName, type, brand, description, price, quantity } = req.body;
     const id = req.params.id
+    const avatar = req.file ? req.file.filename : req.body.avatar;
     try {
-        await updateProduct(productName, type, brand, description, price, quantity, id);
-        res.redirect("/products");
+        await updateProduct(productName, type, brand, description, price, quantity, avatar, id);
+        res.json({ success: true, message: "Cập nhật thành công!", redirect: "/products" });
     } catch (error) {
         res.status(500).send("Lỗi khi sửa sản phẩm: " + error.message);
     }
@@ -46,6 +47,7 @@ const postUpdateProduct = async (req, res) => {
 const postDeleteProduct = async (req, res) => {
     const id = req.params.id
     await deleteProduct(id)
+    res.redirect('/products')
 }
 
 module.exports = {

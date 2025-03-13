@@ -56,7 +56,14 @@
                         <div class="input-group">
                             <label for="">Số lượng:</label>
                             <input class="input-text" type="text" name="quantity">
-                        </div>         
+                        </div> 
+                        <div class="input-group">
+                            <label for="">Hình ảnh:</label>
+                            <input type="file" name="avatar" id="imgInput">
+                        </div>
+                        <div class="input-group">
+                            <img id="imgPreview" src="/images/avtUsers/default_imgProduct.jpg" alt="">         
+                        </div>                                   
                         <button type="submit">Thêm mới</button>
                     </form>
                 </div>
@@ -71,5 +78,17 @@
         <!-- footer -->
     </div>
     <script src="/js/home.js"></script>
+    <script>
+        document.getElementById("imgInput").addEventListener("change", function(event) {
+            const file = event.target.files[0]; // Lấy file được chọn
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById("imgPreview").src = e.target.result; // Gán ảnh preview
+                };
+                reader.readAsDataURL(file); // Đọc file ảnh
+            }
+        });
+    </script>
 </body>
 </html>

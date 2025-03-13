@@ -24,7 +24,11 @@
                     <ul class="main_heading">
                         <li><a href=""><span>Nhân viên/Chỉnh sửa nhân viên</span></a></li>
                     </ul>
-                    <form action="/update-user/<%= user.id %>" method="post" enctype="multipart/form-data">
+                    <form id="updateForm">
+                        <div class="input-group" style="display: none;">
+                            <label for="">Mã nhân viên:</label>
+                            <input id="userId" class="input-text" type="text" name="user_id" value="<%= user.id %>">
+                        </div>
                         <div class="input-group">
                             <label for="">Họ tên:</label>
                             <input class="input-text" type="text" name="fullName" value="<%= user.fullName %>">
@@ -69,10 +73,11 @@
                         </div>
                         <div class="input-group">
                             <label for="">Hình ảnh:</label>
-                            <input type="file" name="avatar" id="imgInput">                       
+                            <input type="file" name="avatar" id="imgInput"> 
+                            <input type="hidden" id="oldImage" value="<%= user.avtUser %>">                      
                         </div>  
                         <div class="input-group">
-                            <% if(user.avtUser == '') { %>
+                            <% if(user.avtUser == 'none') { %>
                                 <img id="imgPreview" src="/images/avtUsers/default_avt.jpg %>" alt="">    
                             <% } else { %>         
                                 <img id="imgPreview" src="/images/avtUsers/<%= user.avtUser %>" alt="">
@@ -93,5 +98,6 @@
     </div>
     <script src="/js/home.js"></script>
     <script src="/js/previewImage.js"></script>
+
 </body>
 </html>

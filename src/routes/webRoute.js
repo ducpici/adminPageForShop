@@ -9,6 +9,7 @@ import {getDetailOrderPage} from '../controllers/order_detailControllers'
 import {getBrandsPage,getAddBrandPage,postCreateBrand,getEditBrandPage,postUpdateBrand,postDeleteBrand} from '../controllers/brandControllers'
 import {getProductTypesPage,getAddProductTypePage,postCreateProductType,getEditProductTypePage,postUpdateProductType,postDeleteProductType} from '../controllers/productTypeControllers'
 import {getInvoicePage} from '../controllers/invoiceControllers'
+import {getStatisticPage} from '../controllers/statisticControllers'
 import upload from '../middlewares/multerConfig'
 const router = express.Router()
 
@@ -31,11 +32,13 @@ router.get('/orders',loggedin, getOrdersPage)
 
 router.get('/order-detail/:id',loggedin, getDetailOrderPage)
 
+router.get('/statistical', loggedin, getStatisticPage)
+
 router.get('/products',loggedin, getProductsPage)
 router.get('/add-product', loggedin, getAddProductPage)
-router.post('/create-product', loggedin, postCreateProduct)
+router.post('/create-product', loggedin, upload.single("avatar"), postCreateProduct)
 router.get('/edit-product/:id', loggedin, getEditProductPage)
-router.post('/update-product/:id', loggedin, postUpdateProduct)
+router.post('/update-product/:id', loggedin, upload.single("avatar"), postUpdateProduct)
 router.get('/delete-product/:id', loggedin, postDeleteProduct)
 
 router.get('/brands',loggedin, getBrandsPage)

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/home.css">
+    <link rel="stylesheet" href="/css/customer.css">
+    <link rel="stylesheet" href="/assets/fontawesome-web/fontawesome-free-6.7.2-web/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <title>Document</title>
+</head>
+<style>
+        .form-group {
+            margin-top: 20px;
+            display: flex;
+            justify-content: start;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        select {
+            width: 120px;
+            /* flex: 1; */
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .filter-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #28a745;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .filter-btn:hover {
+            background-color: #218838;
+        }
+
+        .filter-btn i {
+            margin-right: 5px;
+        }
+</style>
+<body>
+    <div class="wrapper">
+        <!-- sidebar -->
+        <%- include('sidebar.ejs') %>
+        <!-- sidebar -->
+
+        <!-- content -->
+        <div class="content-wrapper">   
+            <%- include('navbarTop.ejs') %>
+            <div class="container-wrapper">
+                <div class="main">
+                    <ul class="main_heading">
+                        <li><a href=""><span>Thống kê doanh thu tổng hợp/</span></a></li>
+                    </ul> 
+                    <div class="form-group">
+                            <select id="day">
+                                <option selected>Chọn ngày</option>
+                                <script>
+                                    for (let i = 1; i <= 31; i++) {
+                                        document.write(`<option value="${i}">${i}</option>`);
+                                    }
+                                </script>
+                            </select>
+                            <select id="month">
+                                <option selected>Chọn tháng</option>
+                                <script>
+                                    for (let i = 1; i <= 12; i++) {
+                                        document.write(`<option value="${i}">${i}</option>`);
+                                    }
+                                </script>
+                            </select>            
+                            <select id="year">
+                                <option selected>2025</option>
+                                <script>
+                                    const currentYear = new Date().getFullYear();
+                                    for (let i = currentYear; i >= 2000; i--) {
+                                        document.write(`<option value="${i}">${i}</option>`);
+                                    }
+                                </script>
+                            </select>
+                            <button id="btn_filter" class="filter-btn">
+                                <i class="fas fa-search"></i> Tìm kiếm
+                            </button>                            
+                    </div>                       
+                    <table>
+                        <thead>
+                            <th>#</th>
+                            <th>Tên sản phẩm</th>
+                            <th>Số lượng bán ra</th>
+                            <th>Doanh thu</th>
+                        </thead>
+                        <tbody id="tBody">
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>                
+        </div>
+        <!-- content -->
+
+        <!-- footer -->
+        <footer class="footer">
+
+        </footer>
+        <!-- footer -->
+    </div>
+    <script src="/js/home.js"></script>
+    <script>
+        const btn_filter = document.querySelector('#btn_filter')
+        const day = document.querySelector('#day').value
+        const month = document.querySelector('#month').value
+        const year = document.querySelector('#year').value
+        const tableBody = document.querySelector('#tBody')
+        btn_filter.addEventListener("click", async (e) => {
+        console.log(btn_filter)
+
+        e.preventDefault();
+
+        // Lấy giá trị từ dropdown
+        const day = document.querySelector("#day").value;
+        const month = document.querySelector("#month").value;
+        const year = document.querySelector("#year").value;
+
+        // Tạo URL API linh hoạt
+        let apiUrl = `/api/statistics?year=${year}`;
+        if (day !== "Chọn ngày") {
+            apiUrl += `&day=${day}`;
+        }
+        if (month !== "Chọn tháng") {
+            apiUrl += `&month=${month}`;
+        }
+
+        try {
+            const response = await fetch(apiUrl, {
+                method: "GET",
+                headers: { "Content-Type": "application/json" }
+            });
+
+            if (!response.ok) {
+                throw new Error("Lỗi kết nối server!");
+            }
+
+            const data = await response.json();
+            console.log("Dữ liệu từ server:", data);
+
+            // Xóa nội dung cũ trong bảng
+            tableBody.innerHTML = "";
+
+            // Kiểm tra nếu không có dữ liệu
+            if (data.length === 0) {
+                tableBody.innerHTML = `<tr><td colspan="5" style="text-align:center;">Không có dữ liệu</td></tr>`;
+                return;
+            }
+            var count=0
+            // Render dữ liệu vào bảng
+            data.forEach((item) => {
+                count++
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                    <td>${count}</td>
+                    <td>${item.product_name}</td>
+                    <td>${item.total_quantity_sold}</td>
+                    <td>${item.total_revenue.toLocaleString()} VND</td>
+                `;
+                tableBody.appendChild(row);
+            });
+        } catch (error) {
+            console.error("Lỗi:", error);
+            alert("Có lỗi xảy ra!");
+        }
+    });
+    </script>
+    <script>
+
+    </script>
+</body>
+</html>

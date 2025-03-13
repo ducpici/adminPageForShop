@@ -23,7 +23,7 @@
                     <ul class="main_heading">
                         <li><a href=""><span>Nhân viên/</span></a></li>
                     </ul>
-                    <a class="addNew" href="add-user">Thêm mới</a>                       
+                    <a class="addNew" href="add-user">Thêm mới</a>                     
                     <table>
                         <tr>
                             <th>#</th>
@@ -45,7 +45,7 @@
                             <td><%= user.user_id %></td>
                             <td><%= user.fullName %></td>
                             <td> 
-                                <% if(user.avtUser == '') { %>
+                                <% if(user.avtUser == 'none') { %>
                                     <img class="avatar_user" src="/images/avtUsers/default_avt.jpg %>" alt="">    
                                 <% } else { %>         
                                     <img class="avatar_user" src="/images/avtUsers/<%= user.avtUser %>" alt="">
@@ -79,6 +79,9 @@
         </footer>
         <!-- footer -->
     </div>
-    <!-- <script src="/js/home.js"></script> -->
+    <script src="/js/home.js"></script>
+    <script>
+
+    </script>
 </body>
 </html>

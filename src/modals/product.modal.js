@@ -10,14 +10,14 @@ const getProductById = async (id) => {
     return results 
 }
 
-const createProduct = async (productName, type, brand, description, price, quantity) => {
-    const [results, fields] = await connection.execute('insert into products (product_name, product_type_id, brand_id, description, price, quantity) values (?,?,?,?,?,?)', [productName, type, brand, description, price, quantity])
+const createProduct = async (productName, type, brand, description, price, quantity, img) => {
+    const [results, fields] = await connection.execute('insert into products (product_name, product_type_id, brand_id, description, price, quantity, img) values (?,?,?,?,?,?,?)', [productName, type, brand, description, price, quantity, img])
     return results
 }
 
 
-const updateProduct = async (productName, type, brand, description, price, quantity, id) => {
-    const [results, fields] = await connection.execute('update products set product_name=?, product_type_id=?, brand_id=?, description=?, price=?, quantity=? where id=?', [productName, type, brand, description, price, quantity, id])
+const updateProduct = async (productName, type, brand, description, price, quantity, img, id) => {
+    const [results, fields] = await connection.execute('update products set product_name=?, product_type_id=?, brand_id=?, description=?, price=?, quantity=?, img=? where id=?', [productName, type, brand, description, price, quantity, img, id])
     return results
 }
 

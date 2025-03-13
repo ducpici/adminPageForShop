@@ -15,6 +15,11 @@ const insertOrderDetail = async (order_id, product_id, quantity) => {
     return results
 }
 
+const updateStatus = async (idStatus, order_id) => {
+    const [results, fields] = await connection.execute('update orders set status = ? where id = ?', [idStatus, order_id])
+    return results
+}
+
 module.exports = {
-    getAllOrder,createOrder,insertOrderDetail
+    getAllOrder,createOrder,insertOrderDetail,updateStatus
 }
